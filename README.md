@@ -48,6 +48,8 @@ Mở <http://localhost:8000/>.
 12. **Bài 2 · Bảng biến thiên** — giá trị tại hai đầu mút và tại \(x_0\).
 13. **Bài 2 · Kết quả** — `x ≈ 33,61 cm`, `S_min ≈ 126,02 cm²`, đồ thị.
 14. **Tổng kết** — so sánh hai kết quả và quy trình chung.
+15. **Mở trên web** — mã QR, liên kết trực tiếp và nút sao chép địa chỉ
+    <https://ken021109.github.io/toan12-hk1-slide/>.
 
 ## Cấu trúc
 
@@ -56,6 +58,8 @@ Mở <http://localhost:8000/>.
 ├── index.html                 # khung trang, import map, HUD
 ├── styles.css                 # theme, stage 16:9, thanh điều hướng
 ├── favicon.svg
+├── assets/
+│   └── slide-qr.png           # mã QR trỏ tới bản GitHub Pages
 ├── README.md
 └── js/
     ├── main.js                # điểm vào
@@ -67,7 +71,7 @@ Mở <http://localhost:8000/>.
     │   ├── plots.js           # đồ thị T(x), S(x) có điểm chạy
     │   └── variation-table.js # bảng biến thiên kiểu Việt Nam
     └── slides/
-        ├── index.js           # đăng ký 14 slide
+        ├── index.js           # đăng ký 15 slide
         ├── 01-title.js
         ├── 02-overview.js
         ├── 03-method.js
@@ -81,7 +85,8 @@ Mở <http://localhost:8000/>.
         ├── 11-bai2-dao-ham.js
         ├── 12-bai2-bang-bien-thien.js
         ├── 13-bai2-ket-qua.js
-        └── 14-tong-ket.js
+        ├── 14-tong-ket.js
+        └── 15-link.js
 ```
 
 ## Thêm hoặc sửa slide
@@ -109,6 +114,10 @@ Các hàm dựng sẵn:
 - `buildRiverDiagram`, `buildRiverTriangleModel`, `buildTriangleDiagram`, `wireDiagram` — hình minh họa.
 - `buildTGraph`, `revealTGraph`, `buildSGraph`, `revealSGraph` — đồ thị.
 - `buildVariationTable` — bảng biến thiên; dùng `table.moveBy(dx, dy)` để đặt vị trí.
+
+Slide cuối dùng thêm một thanh HTML phủ trên canvas (`#slide-actions`) cho liên kết
+thật và nút **Sao chép**. Thanh này chỉ hiện khi slide có `id: "link"`; nút dùng
+Clipboard API và có phương án dự phòng bằng `execCommand("copy")`.
 
 Lưu ý: `MathTex` cần `await waitForRender()` (đã bọc trong `tex()`), còn
 `scene.play()` và `scene.wait()` là bất đồng bộ nên phải `await`.

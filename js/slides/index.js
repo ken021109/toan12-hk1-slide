@@ -12,6 +12,7 @@ import slide11 from "./11-bai2-dao-ham.js";
 import slide12 from "./12-bai2-bang-bien-thien.js";
 import slide13 from "./13-bai2-ket-qua.js";
 import slide14 from "./14-tong-ket.js";
+import slide15 from "./15-link.js";
 
 export default [
   slide01,
@@ -28,4 +29,5 @@ export default [
   slide12,
   slide13,
   slide14,
+  slide15,
 ];

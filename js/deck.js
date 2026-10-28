@@ -25,8 +25,13 @@ export class Deck {
     this.progress = document.querySelector(".progress");
     this.progressFill = document.getElementById("progress-fill");
     this.hint = document.getElementById("hint");
+    this.actions = document.getElementById("slide-actions");
+    this.copyButton = document.getElementById("copy-link");
+    this.copyLabel = this.copyButton?.querySelector(".copy-label");
+    this.copyTimer = null;
 
     this.bindControls();
+    this.bindCopyLink();
     this.ready = this.start();
   }
 
@@ -99,6 +104,50 @@ export class Deck {
     );
   }
 
+  bindCopyLink() {
+    if (!this.actions || !this.copyButton) return;
+    const url = this.actions.dataset.url;
+    if (!url) return;
+
+    this.copyButton.addEventListener("click", async () => {
+      try {
+        await this.copyText(url);
+        this.copyButton.classList.add("is-copied");
+        if (this.copyLabel) this.copyLabel.textContent = "Đã sao chép!";
+      } catch {
+        if (this.copyLabel) this.copyLabel.textContent = "Không sao chép được";
+      }
+
+      clearTimeout(this.copyTimer);
+      this.copyTimer = setTimeout(() => this.resetCopyState(), 1900);
+    });
+  }
+
+  async copyText(value) {
+    if (navigator.clipboard?.writeText && window.isSecureContext) {
+      await navigator.clipboard.writeText(value);
+      return;
+    }
+
+    const area = document.createElement("textarea");
+    area.value = value;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.top = "-1000px";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    const copied = document.execCommand("copy");
+    area.remove();
+    if (!copied) throw new Error("Clipboard unavailable");
+  }
+
+  resetCopyState() {
+    if (!this.copyButton) return;
+    this.copyButton.classList.remove("is-copied");
+    if (this.copyLabel) this.copyLabel.textContent = "Sao chép";
+  }
+
   next() {
     this.goTo(this.index + 1, { direction: 1 });
   }
@@ -156,6 +205,7 @@ export class Deck {
         total: this.slides.length,
       });
 
+      if (this.actions) this.actions.hidden = this.slides[index].id !== "link";
       if (this.loading) this.loading.classList.add("is-hidden");
       this.hint?.classList.remove("is-visible");
     } catch (error) {
@@ -180,6 +230,8 @@ export class Deck {
 
     document.documentElement.style.setProperty("--accent", accent);
     document.documentElement.style.setProperty("--accent-soft", `${accent}22`);
+    if (this.actions) this.actions.hidden = true;
+    if (slide.id !== "link") this.resetCopyState();
     if (this.counter) this.counter.innerHTML = `<strong>${current}</strong> / ${total}`;
     if (this.progress) {
       this.progress.setAttribute("aria-valuenow", String(Math.round(((index + 1) / this.slides.length) * 100)));
