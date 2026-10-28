@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+#Something I dont wanna people see
+docs/manim
+docs/manim-web
+.opencode/
+AGENTS.md
+
+
+# Virtual environments
+.venv
