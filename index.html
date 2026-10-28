@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta
+      name="description"
+      content="Slide trình bày hai bài toán tối ưu hóa lớp 12: chọn điểm hạ bờ và chia sợi dây."
+    />
+    <title>Tối ưu hóa — Toán 12</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "manim-web": "https://cdn.jsdelivr.net/npm/manim-web@0.40.1/dist/manim-web.browser.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="ambient ambient-a" aria-hidden="true"></div>
+      <div class="ambient ambient-b" aria-hidden="true"></div>
+      <div class="ambient ambient-c" aria-hidden="true"></div>
+
+      <main class="stage-shell" id="stage-shell">
+        <div id="stage" aria-label="Slide toán học"></div>
+        <div class="loading" id="loading">
+          <span class="loading-ring" aria-hidden="true"></span>
+          <span>Đang dựng slide…</span>
+        </div>
+        <div class="error" id="error" hidden>
+          <strong>Không dựng được slide.</strong>
+          <span id="error-message"></span>
+        </div>
+      </main>
+
+      <footer class="hud">
+        <div class="hud-brand">
+          <span class="brand-mark" aria-hidden="true">∑</span>
+          <span class="brand-copy">
+            <span class="brand-title">Tối ưu hóa</span>
+            <span class="brand-sub">Ứng dụng đạo hàm</span>
+          </span>
+        </div>
+
+        <div class="hud-nav">
+          <button class="icon-btn" id="prev" type="button" aria-label="Slide trước">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+          </button>
+          <div class="progress" role="progressbar" aria-label="Tiến độ" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <button class="icon-btn" id="next" type="button" aria-label="Slide tiếp theo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+
+        <div class="hud-meta">
+          <span class="counter" id="counter">01 / 01</span>
+          <button class="icon-btn" id="fullscreen" type="button" aria-label="Toàn màn hình">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" /></svg>
+          </button>
+        </div>
+      </footer>
+
+      <div class="hint" id="hint">← → chuyển slide · F toàn màn hình</div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
